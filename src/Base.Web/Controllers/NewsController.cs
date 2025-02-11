@@ -66,10 +66,10 @@ public class NewsController(NewsService service) : Controller
     if (ModelState.IsValid)
     {
       await _service.UpdateAsync(model);
-      return RedirectToAction("Index");
+      return Json(new { success = true, message = "Notícia atualizada com sucesso!" });
     }
 
-    return View(model);
+    return Json(new { success = false, message = "Erro ao atualizar a notícia." });
   }
 
   [HttpGet("Delete/{id}")]
@@ -85,7 +85,7 @@ public class NewsController(NewsService service) : Controller
   public async Task<IActionResult> DeleteConfirmed(int id)
   {
     await _service.DeleteAsync(id);
-    return RedirectToAction("Index");
+    return Json(new { success = true, message = "Notícia apagada com sucesso!" });
   }
 
 }

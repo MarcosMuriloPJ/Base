@@ -65,10 +65,10 @@ public class TagController(TagService service) : Controller
     if (ModelState.IsValid)
     {
       await _service.UpdateAsync(model);
-      return RedirectToAction("Index");
+      return Json(new { success = true, message = "Tag atualizada com sucesso!" });
     }
 
-    return View(model);
+    return Json(new { success = false, message = "Erro ao atualizar a tag." });
   }
 
   [HttpGet("Delete/{id}")]
@@ -84,7 +84,7 @@ public class TagController(TagService service) : Controller
   public async Task<IActionResult> DeleteConfirmed(int id)
   {
     await _service.DeleteAsync(id);
-    return RedirectToAction("Index");
+    return Json(new { success = true, message = "Tag apagada com sucesso!" });
   }
 
 }

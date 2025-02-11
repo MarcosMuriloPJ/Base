@@ -48,7 +48,6 @@
         SelectedTags: $("select[name='SelectedTags']").val().map(Number),
         Tags: []
       };
-      console.log(JSON.stringify(formData))
 
       $.ajax({
         url: '@Url.Action("Edit")',
