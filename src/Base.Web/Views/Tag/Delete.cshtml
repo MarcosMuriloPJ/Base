@@ -1,0 +1,40 @@
+@model Base.Application.Models.Tags.DeleteTagViewModel
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="alert alert-warning">
+  <h4 class="alert-heading">Você tem certeza que deseja excluir esta tag?</h4>
+  <p><strong>Descrição:</strong> @Model.Description</p>
+</div>
+
+<form id="deleteForm">
+  <input type="hidden" asp-for="Id" />
+  <button type="submit" class="btn btn-danger">Excluir</button>
+  <a href="@Url.Action("Index")" class="btn btn-primary">Cancelar</a>
+</form>
+
+@section Scripts {
+  <partial name="_ValidationScriptsPartial" />
+
+  <script>
+    $("#deleteForm").submit(function (e) {
+      e.preventDefault();
+
+      var formData = {
+        Id: parseInt($("input[name='Id']").val(), 10)
+      };
+
+      $.ajax({
+        url: '@Url.Action("Delete")',
+        type: 'DELETE',
+        contentType: 'application/json',
+        success: function (response) {
+          window.location.href = '@Url.Action("Index")';
+        },
+        error: function (error) {
+          console.log("Erro ao excluir tag.");
+        }
+      });
+    });
+  </script>
+}

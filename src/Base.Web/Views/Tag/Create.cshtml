@@ -1,0 +1,46 @@
+@model Base.Application.Models.Tags.CreateTagViewModel
+
+<h1>@ViewData["Title"]</h1>
+
+<form id="createForm">
+  <div class="form-group">
+    <label asp-for="Description" class="control-label"></label>
+    <input asp-for="Description" class="form-control" />
+    <span asp-validation-for="Description" class="text-danger"></span>
+  </div>
+
+  <button type="submit" class="btn btn-success">Criar</button>
+</form>
+
+<a href="@Url.Action("Index")" class="btn btn-primary">Cancelar</a>
+
+@section Scripts {
+  <partial name="_ValidationScriptsPartial" />
+
+  <script>
+    $("#createForm").submit(function (e) {
+      e.preventDefault();
+
+      if (!$(this).valid()) {
+        return;
+      }
+
+      var formData = {
+        Description: $("input[name='Description']").val()
+      };
+
+      $.ajax({
+        url: '@Url.Action("Create")',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(formData),
+        success: function (response) {
+          window.location.href = '@Url.Action("Index")';
+        },
+        error: function (error) {
+          console.log("Erro ao criar tag.");
+        }
+      });
+    });
+  </script>
+}

@@ -1,0 +1,67 @@
+@model Base.Application.Models.News.EditNewsViewModel
+
+<h2>@ViewData["Title"]</h2>
+
+<form id="editForm">
+  <div class="form-group">
+    <label asp-for="Title" class="control-label"></label>
+    <input asp-for="Title" class="form-control" />
+    <span asp-validation-for="Title" class="text-danger"></span>
+  </div>
+
+  <div class="form-group">
+    <label asp-for="Content" class="control-label"></label>
+    <textarea asp-for="Content" class="form-control"></textarea>
+    <span asp-validation-for="Content" class="text-danger"></span>
+  </div>
+
+  <div class="form-group">
+    <label>Selecione as Tags</label>
+    <select asp-for="SelectedTags" class="form-control" multiple="multiple"
+      asp-items="@(new SelectList(Model.Tags, "Id", "Description", Model.SelectedTags))">
+    </select>
+  </div>
+
+  <input type="hidden" asp-for="Id" />
+
+  <button type="submit" class="btn btn-primary">Salvar</button>
+</form>
+
+<a href="@Url.Action("Index")" class="btn btn-secondary">Voltar</a>
+
+@section Scripts {
+  <partial name="_ValidationScriptsPartial" />
+
+  <script>
+    $("#editForm").submit(function (e) {
+      e.preventDefault();
+
+      if (!$(this).valid()) {
+        return;
+      }
+
+      var formData = {
+        Id: parseInt($("input[name='Id']").val(), 10),
+        UserId: @Context.Session.GetInt32("UserId"),
+        Title: $("input[name='Title']").val(),
+        Content: $("textarea[name='Content']").val(),
+        SelectedTags: $("select[name='SelectedTags']").val().map(Number),
+        Tags: []
+      };
+      console.log(JSON.stringify(formData))
+
+      $.ajax({
+        url: '@Url.Action("Edit")',
+        type: 'PUT',
+        contentType: 'application/json',
+        data: JSON.stringify(formData),
+        success: function (response) {
+          window.location.href = '@Url.Action("Index")';
+        },
+        error: function (error) {
+          console.log("Erro ao editar notícia.");
+        }
+      });
+    });
+  </script>
+}

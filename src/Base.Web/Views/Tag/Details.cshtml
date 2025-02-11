@@ -1,0 +1,21 @@
+@model Base.Application.Models.Tags.TagDetailsViewModel
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="form-group">
+  <label>Descrição</label>
+  <p>@Model.Description</p>
+</div>
+
+<div class="form-group">
+  <label>Notícias Associadas</label>
+  <ul>
+    @foreach (var title in Model.NewsTitles)
+    {
+      <li>@title</li>
+    }
+  </ul>
+</div>
+
+<a href="@Url.Action("Edit", new { id = Model.Id })" class="btn btn-primary">Editar</a>
+<a href="@Url.Action("Index")" class="btn btn-secondary">Voltar</a>

@@ -1,0 +1,46 @@
+@model Base.Application.Models.Tags.EditTagViewModel
+
+<h1>@ViewData["Title"]</h1>
+
+<form id="editForm">
+  <div class="form-group">
+    <label asp-for="Description" class="control-label"></label>
+    <input asp-for="Description" class="form-control" />
+    <span asp-validation-for="Description" class="text-danger"></span>
+  </div>
+  <input type="hidden" asp-for="Id" />
+  <button type="submit" class="btn btn-warning">Salvar Alterações</button>
+  <a href="@Url.Action("Index")" class="btn btn-primary">Cancelar</a>
+</form>
+
+@section Scripts {
+  <partial name="_ValidationScriptsPartial" />
+
+  <script>
+    $("#editForm").submit(function (e) {
+      e.preventDefault();
+
+      if (!$(this).valid()) {
+        return;
+      }
+
+      var formData = {
+        Id: @Model.Id,
+        Description: $("input[name='Description']").val()
+      };
+
+      $.ajax({
+        url: '@Url.Action("Edit")',
+        type: 'PUT',
+        contentType: 'application/json',
+        data: JSON.stringify(formData),
+        success: function (response) {
+          window.location.href = '@Url.Action("Index")';
+        },
+        error: function (error) {
+          console.log("Erro ao editar tag.");
+        }
+      });
+    });
+  </script>
+}
