@@ -1,0 +1,5 @@
+1 - A mais coerente com o projeto pedido é o model, mas tem outras formas como viewbag, tempdata ou viewdata
+
+2 - Usando data anotations junto do tag helpers, apesar de que existe também via jQuery
+
+3 - Através dos appsettings(.development/.production).json temos esta possibilidade, como por exemplo ativar/desativar uma funcionalidade ao rodar uma pipeline (via Azure ou AWS) após alterar uma variável de ambiente pré-definida
