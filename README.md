@@ -52,6 +52,16 @@ dotnet run
 
 ## 🔧 Configuração
 
+### Migrations
+
+**Entity Framework CLI commands**
+
+```Database e Sobrecarga
+dotnet ef migrations add StartInitial --project ./src/Base.Infrastructure/Base.Infrastructure.csproj --startup-project ./src/Base.Web/Base.Web.csproj
+dotnet ef migrations add StartUserSeed --project ./src/Base.Infrastructure/Base.Infrastructure.csproj --startup-project ./src/Base.Web/Base.Web.csproj
+dotnet ef database update --project ./src/Base.Infrastructure/Base.Infrastructure.csproj --startup-project ./src/Base.Web/Base.Web.csproj
+```
+
 ### appsettings.json
 
 Configure as definições da sua aplicação em `appsettings.json` e `appsettings.Development.json`:

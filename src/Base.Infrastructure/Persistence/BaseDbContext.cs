@@ -50,6 +50,16 @@ public class BaseDbContext(DbContextOptions<BaseDbContext> options) : DbContext(
       entity.Property(nt => nt.TagId).HasColumnName("TagId");
     });
 
+    modelBuilder.Entity<User>().HasData(
+        new User
+        {
+          Id = 1,
+          Name = "Admin User",
+          Pass = "321321",
+          Email = "admin@email.com"
+        }
+    );
+
     base.OnModelCreating(modelBuilder);
   }
 }

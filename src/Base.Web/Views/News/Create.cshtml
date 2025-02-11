@@ -52,7 +52,7 @@
         contentType: 'application/json',
         data: JSON.stringify(formData),
         success: function (response) {
-          console.log("Criada notícia.");
+          window.location.href = '@Url.Action("Index")';
         },
         error: function (error) {
           console.log("Erro ao criar notícia.");
