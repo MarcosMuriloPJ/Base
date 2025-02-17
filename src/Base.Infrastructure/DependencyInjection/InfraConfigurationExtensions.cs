@@ -1,11 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Base.Domain.InterfacesRepositories;
+using Base.Domain.Interfaces.Repositories;
 using Base.Application.Services;
 using Base.Infrastructure.Persistence;
 using Base.Infrastructure.Persistence.Repositories;
-using Base.Domain.Interfaces.Repositories;
 
 namespace Base.Infrastructure.DependencyInjection;
 

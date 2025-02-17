@@ -1,12 +1,7 @@
 using Base.Domain.Entities;
 
-namespace Base.Domain.InterfacesRepositories;
+namespace Base.Domain.Interfaces.Repositories;
 
-public interface INewsRepository
+public interface INewsRepository : IGenericRepository<News>
 {
-  Task<IEnumerable<News>> GetAllAsync();
-  Task<News> GetByIdAsync(int id);
-  Task AddAsync(News news);
-  Task UpdateAsync(News news);
-  Task DeleteAsync(int id);
 }

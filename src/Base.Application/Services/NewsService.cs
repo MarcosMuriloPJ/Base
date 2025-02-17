@@ -1,11 +1,17 @@
 using Base.Application.Mapping;
 using Base.Application.Models.News;
 using Base.Domain.Entities;
-using Base.Domain.InterfacesRepositories;
+using Base.Domain.Interfaces.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace Base.Application.Services;
 
-public class NewsService(INewsRepository repository, UserService userService, NewsTagService newsTagService, TagService tagService)
+public class NewsService(
+    INewsRepository repository,
+    UserService userService,
+    NewsTagService newsTagService,
+    TagService tagService
+  )
 {
   private readonly INewsRepository _repo = repository;
   private readonly UserService _userService = userService;
@@ -14,7 +20,11 @@ public class NewsService(INewsRepository repository, UserService userService, Ne
 
   public async Task<IEnumerable<NewsViewModel>?> GetAllAsync()
   {
-    var news = await _repo.GetAllAsync();
+    var news = await _repo.GetAllAsync(query => query
+                          .Include(n => n.User)
+                          .Include(n => n.NewsTags)
+                            .ThenInclude(nt => nt.Tag)
+    );
     var result = news?.Select(NewsMapping.MapToNewsViewModel);
 
     return result;
@@ -22,7 +32,11 @@ public class NewsService(INewsRepository repository, UserService userService, Ne
 
   public async Task<NewsDetailsViewModel> GetDetailsByIdAsync(int id)
   {
-    var news = await GetByIdAsync(id);
+    var news = await _repo.GetByIdAsync(id, query => query
+        .Include(n => n.User)
+        .Include(n => n.NewsTags)
+            .ThenInclude(nt => nt.Tag)
+    );
     var result = NewsMapping.MapToNewsDetailsViewModel(news);
 
     return result;
@@ -97,5 +111,4 @@ public class NewsService(INewsRepository repository, UserService userService, Ne
 
     return news;
   }
-
 }

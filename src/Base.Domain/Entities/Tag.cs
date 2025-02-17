@@ -1,8 +1,9 @@
 using System.ComponentModel.DataAnnotations;
+using Base.Domain.Interfaces.Entities;
 
 namespace Base.Domain.Entities;
 
-public class Tag
+public class Tag : IEntity
 {
   [Key]
   public int Id { get; set; }

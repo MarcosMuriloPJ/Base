@@ -1,4 +1,4 @@
-using Base.Domain.InterfacesRepositories;
+using Base.Domain.Interfaces.Repositories;
 
 namespace Base.Application.Services;
 

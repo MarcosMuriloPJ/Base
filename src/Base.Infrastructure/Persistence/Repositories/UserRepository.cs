@@ -1,5 +1,5 @@
 using Base.Domain.Entities;
-using Base.Domain.InterfacesRepositories;
+using Base.Domain.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
