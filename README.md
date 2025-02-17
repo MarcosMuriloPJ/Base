@@ -57,8 +57,8 @@ dotnet run
 **Entity Framework CLI commands**
 
 ```bash
-dotnet ef migrations add StartInitial --project ./src/Base.Infrastructure/Base.Infrastructure.csproj --startup-project ./src/Base.Web/Base.Web.csproj
-dotnet ef migrations add StartUserSeed --project ./src/Base.Infrastructure/Base.Infrastructure.csproj --startup-project ./src/Base.Web/Base.Web.csproj
+dotnet ef migrations add StartInitial --project ./src/Base.Infrastructure/Base.Infrastructure.csproj --startup-project ./src/Base.Web/Base.Web.csproj --output-dir Persistence/Migrations
+dotnet ef migrations add StartUserSeed --project ./src/Base.Infrastructure/Base.Infrastructure.csproj --startup-project ./src/Base.Web/Base.Web.csproj --output-dir Persistence/Migrations
 dotnet ef database update --project ./src/Base.Infrastructure/Base.Infrastructure.csproj --startup-project ./src/Base.Web/Base.Web.csproj
 ```
 
